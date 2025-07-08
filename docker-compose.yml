@@ -7,15 +7,15 @@ services:
     ports:
       - "7700:7700"
     environment:
-      - MEILI_MASTER_KEY=windkingMeiliKey
+      - MEILI_MASTER_KEY=${MEILI_MASTER_KEY}
 
   weaviate:
     image: semitechnologies/weaviate:1.24.10
     container_name: weaviate
     restart: always
     ports:
-      - "8080:8080"     # REST API
-      - "50051:50051"   # gRPC
+      - "8080:8080"
+      - "50051:50051"
     volumes:
       - ./weaviate_data:/var/lib/weaviate
       - ./weaviate_logs:/var/log/weaviate
@@ -24,6 +24,5 @@ services:
       - AUTHENTICATION_ANONYMOUS_ACCESS_ENABLED=true
       - PERSISTENCE_DATA_PATH=/var/lib/weaviate
       - DEFAULT_VECTORIZER_MODULE=text2vec-openai
-      - OPENAI_APIKEY=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
+      - OPENAI_APIKEY=${OPENAI_APIKEY}
       - ENABLE_MODULES=text2vec-openai
-
