@@ -1,0 +1,31 @@
+services:
+  redis:
+    image: redis:7
+    restart: always
+
+  meilisearch:
+    image: getmeili/meilisearch:latest
+    environment:
+      - MEILI_MASTER_KEY=wind123
+      - MEILI_EXPERIMENTAL_ENABLE_METRICS=true
+    restart: always
+
+  weaviate:
+    image: semitechnologies/weaviate:1.24.10
+    environment:
+      - AUTHENTICATION_ANONYMOUS_ACCESS_ENABLED=true
+    restart: always
+
+  infra-ollama-1:
+    image: ollama/ollama:latest
+    restart: always
+    ports:
+      - "11434:11434"
+    volumes:
+      - /usr/share/ollama/.ollama/models:/root/.ollama/models
+    networks:
+      - default
+
+networks:
+  default:
+    name: windking-net
